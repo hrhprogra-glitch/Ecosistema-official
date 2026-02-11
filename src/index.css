@@ -5,10 +5,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta de colores original de tu marca */
-  --color-eco-logo: #00B4D8;      
-  --color-eco-deep: #216581;      
-  --color-eco-ocean: #2FA4C4;
+  /* Paleta de colores Premium (Basada en tu ejemplo elegante y formal) */
+  --color-eco-logo: #40cfff;      /* Cyan Brillante: Para botones, íconos, hovers y detalles de acento */
+  --color-eco-deep: #020035;      /* Azul Noche Profundo: Máxima formalidad para textos principales y fondos */
+  --color-eco-ocean: #006485;     /* Azul Océano Medio: Un tono de transición corporativo */
 
   /* Configuración de las familias tipográficas */
   --font-display: "Montserrat", sans-serif;  /* Para títulos impactantes */
@@ -24,7 +24,7 @@ body {
   line-height: 1.5;
 }
 
-/* 3. Estilos para títulos (Estilo Rainpro/Industrial) */
+/* 3. Estilos para títulos */
 h1, h2, h3, h4 {
   font-family: var(--font-display); /* Fuente Montserrat */
   font-weight: 900; /* Extra Black para máximo impacto */
@@ -33,6 +33,15 @@ h1, h2, h3, h4 {
   line-height: 1;
 }
 
-/* Utility classes para asegurar que el texto sea legible */
+/* Utility classes de tipografía */
 .font-display { font-family: var(--font-display); }
 .font-interface { font-family: var(--font-interface); }
+
+/* Utility classes adicionales de tu ejemplo (Ocultar scrollbars de forma limpia) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

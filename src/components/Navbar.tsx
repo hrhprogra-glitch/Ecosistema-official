@@ -4,22 +4,42 @@ import { Link, useLocation } from "react-router-dom";
 import { Logo } from "./Logo";
 import { ShoppingCart, User, Search, Menu, X } from "lucide-react"; 
 
+// NUEVO: Importamos el contexto del carrito
+import { useCart } from "../context/CartContext"; 
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
+  // NUEVO: Llamamos a las variables y funciones del carrito
+  const { cartCount, setIsCartOpen } = useCart();
+
+  // Verificamos si estamos en la página de inicio o en otra.
+  const isHomePage = location.pathname === "/";
+
+  // Si no estamos en la página de inicio, forzamos el estilo "scrolled" (fondo blanco, letras oscuras)
+  // para que siempre se lea sobre fondos claros.
+  const shouldBeSolid = !isHomePage || isScrolled;
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
     };
-    window.addEventListener("scroll", handleScroll);
+    
+    // Solo necesitamos el evento de scroll si estamos en el Home
+    if (isHomePage) {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      setIsScrolled(true); // Forzamos a true en otras páginas
+    }
+    
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const navLinks = [
     { name: "Inicio", path: "/" },
-    { name: "Productos", path: "/productos" },
+    { name: "Tienda", path: "/tienda" },
     { name: "Servicios", path: "/servicios" },
     { name: "Contacto", path: "/contacto" }
   ];
@@ -30,9 +50,8 @@ export const Navbar = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        // AQUÍ ESTÁ LA MAGIA: Transición limpia sin degradados que generen líneas falsas
         className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${
-          isScrolled 
+          shouldBeSolid 
             ? "bg-white/95 backdrop-blur-xl border-slate-200 shadow-sm py-3" 
             : "bg-transparent border-transparent shadow-none py-6"
         }`}
@@ -44,12 +63,12 @@ export const Navbar = () => {
             <Logo />
             <div className="flex flex-col">
               <span className={`text-2xl font-display font-black tracking-tighter uppercase italic leading-none transition-colors duration-500 ${
-                isScrolled ? "text-eco-deep" : "text-white drop-shadow-lg"
+                shouldBeSolid ? "text-eco-deep" : "text-white drop-shadow-lg"
               }`}>
                 Ecosistema
               </span>
               <span className={`text-[10px] font-interface font-black tracking-widest uppercase transition-colors duration-500 ${
-                isScrolled ? "text-eco-ocean" : "text-eco-logo drop-shadow-md"
+                shouldBeSolid ? "text-eco-ocean" : "text-eco-logo drop-shadow-md"
               }`}>
                 Online Store
               </span>
@@ -70,7 +89,7 @@ export const Navbar = () => {
                   <Link
                     to={link.path}
                     className={`py-2 transition-colors duration-300 drop-shadow-md ${
-                      isScrolled 
+                      shouldBeSolid 
                         ? (isActive ? "text-eco-logo" : "text-slate-500 hover:text-eco-deep") 
                         : (isActive ? "text-eco-logo" : "text-white/80 hover:text-white")
                     }`}
@@ -84,12 +103,12 @@ export const Navbar = () => {
 
           {/* Acciones */}
           <div className="flex items-center gap-4">
-            <div className={`hidden md:flex items-center gap-5 pr-4 border-r transition-colors duration-500 ${isScrolled ? "border-slate-200" : "border-white/20"}`}>
+            <div className={`hidden md:flex items-center gap-5 pr-4 border-r transition-colors duration-500 ${shouldBeSolid ? "border-slate-200" : "border-white/20"}`}>
               {[Search, User].map((Icon, idx) => (
                 <motion.button 
                   key={idx}
                   whileHover={{ scale: 1.1 }}
-                  className={`transition-colors duration-300 ${isScrolled ? "text-slate-400 hover:text-eco-deep" : "text-white/90 hover:text-white"}`}
+                  className={`transition-colors duration-300 ${shouldBeSolid ? "text-slate-400 hover:text-eco-deep" : "text-white/90 hover:text-white"}`}
                 >
                   <Icon size={20} strokeWidth={2.5} />
                 </motion.button>
@@ -98,14 +117,16 @@ export const Navbar = () => {
 
             {/* Carrito */}
             <motion.button 
+              onClick={() => setIsCartOpen(true)} /* <-- NUEVO: Al hacer clic, abre el carrito */
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group flex items-center gap-3 bg-eco-deep text-white px-6 py-2.5 rounded-full font-display font-black text-[10px] uppercase tracking-widest hover:bg-eco-logo transition-all shadow-md"
             >
               <div className="relative">
                 <ShoppingCart size={16} strokeWidth={2.5} />
+                {/* <-- NUEVO: Contador dinámico del carrito --> */}
                 <span className="absolute -top-2.5 -right-2.5 bg-eco-logo text-white text-[8px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-eco-deep transition-colors group-hover:border-eco-logo">
-                  0
+                  {cartCount}
                 </span>
               </div>
               <span className="hidden sm:block">Carrito</span>
@@ -113,7 +134,7 @@ export const Navbar = () => {
             
             <button 
               onClick={() => setIsOpen(true)}
-              className={`lg:hidden p-2 rounded-lg transition-colors duration-300 ${isScrolled ? "text-eco-deep hover:bg-slate-50" : "text-white hover:bg-white/10"}`}
+              className={`lg:hidden p-2 rounded-lg transition-colors duration-300 ${shouldBeSolid ? "text-eco-deep hover:bg-slate-50" : "text-white hover:bg-white/10"}`}
             >
               <Menu size={24} strokeWidth={2.5} />
             </button>
