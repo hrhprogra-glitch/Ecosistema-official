@@ -1,0 +1,38 @@
+/* src/index.css */
+
+/* 1. Importación de las fuentes oficiales */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Paleta de colores original de tu marca */
+  --color-eco-logo: #00B4D8;      
+  --color-eco-deep: #216581;      
+  --color-eco-ocean: #2FA4C4;
+
+  /* Configuración de las familias tipográficas */
+  --font-display: "Montserrat", sans-serif;  /* Para títulos impactantes */
+  --font-interface: "Inter", sans-serif;    /* Para lectura y párrafos */
+}
+
+/* 2. Estilos base para todo el proyecto */
+body {
+  background-color: #ffffff;
+  color: var(--color-eco-deep);
+  font-family: var(--font-interface); /* Fuente Inter por defecto */
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* 3. Estilos para títulos (Estilo Rainpro/Industrial) */
+h1, h2, h3, h4 {
+  font-family: var(--font-display); /* Fuente Montserrat */
+  font-weight: 900; /* Extra Black para máximo impacto */
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Utility classes para asegurar que el texto sea legible */
+.font-display { font-family: var(--font-display); }
+.font-interface { font-family: var(--font-interface); }
