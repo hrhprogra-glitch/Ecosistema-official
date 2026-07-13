@@ -1,32 +1,32 @@
 /* src/index.css */
 
-/* 1. Importación de las fuentes oficiales */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+/* 1. Importación de las fuentes oficiales (Se añade Work Sans) */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Paleta de colores Premium (Basada en tu ejemplo elegante y formal) */
-  --color-eco-logo: #40cfff;      /* Cyan Brillante: Para botones, íconos, hovers y detalles de acento */
-  --color-eco-deep: #020035;      /* Azul Noche Profundo: Máxima formalidad para textos principales y fondos */
-  --color-eco-ocean: #006485;     /* Azul Océano Medio: Un tono de transición corporativo */
+  /* Paleta de colores Premium */
+  --color-eco-logo: #40cfff;      /* Cyan Brillante */
+  --color-eco-deep: #020035;      /* Azul Noche Profundo */
+  --color-eco-ocean: #006485;     /* Azul Océano Medio */
 
-  /* Configuración de las familias tipográficas */
-  --font-display: "Montserrat", sans-serif;  /* Para títulos impactantes */
-  --font-interface: "Inter", sans-serif;    /* Para lectura y párrafos */
+  /* Configuración de las familias tipográficas con Work Sans */
+  --font-display: "Work Sans", sans-serif;  /* Para títulos impactantes */
+  --font-interface: "Work Sans", sans-serif; /* Para lectura y párrafos */
 }
 
 /* 2. Estilos base para todo el proyecto */
 body {
   background-color: #ffffff;
   color: var(--color-eco-deep);
-  font-family: var(--font-interface); /* Fuente Inter por defecto */
+  font-family: var(--font-interface); /* Ahora usa Work Sans por defecto */
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
 }
 
 /* 3. Estilos para títulos */
 h1, h2, h3, h4 {
-  font-family: var(--font-display); /* Fuente Montserrat */
+  font-family: var(--font-display); /* Ahora usa Work Sans */
   font-weight: 900; /* Extra Black para máximo impacto */
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -37,7 +37,7 @@ h1, h2, h3, h4 {
 .font-display { font-family: var(--font-display); }
 .font-interface { font-family: var(--font-interface); }
 
-/* Utility classes adicionales de tu ejemplo (Ocultar scrollbars de forma limpia) */
+/* Utility classes adicionales para ocultar scrollbars */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
